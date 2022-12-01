@@ -1,0 +1,35 @@
+syntax="proto3";
+
+option go_package="example.com/grpc_api";
+
+//declaring the service
+package empmgmt;
+
+service EmpCRUD{
+    rpc GetEmpsDetails(Empty) returns (stream EmpInfo); //fetching all the empo details
+    rpc GetEmpDetails(Id) returns (EmpInfo);  //fetching single mpe details
+    rpc CreateEmpDetails(EmpInfo) returns (Id); //posting emp to database
+    rpc UpdateEmpDetails(EmpInfo) returns (Status); // updating emp details
+    rpc DeleteEmpDetails(Id) returns (Status); //deleting emp from the database
+}
+
+message Empty{}
+
+message EmpInfo{
+    string id=1;
+    string name=2;
+    string mid=3;
+    Department dept=4;
+}
+
+message Department{
+    string id=1;
+    string name=2;
+}
+
+message Id{
+    string value=1;
+}
+message Status{
+    int32 value=1;
+}
